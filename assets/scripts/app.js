@@ -6,7 +6,6 @@ class ProductItem {
     this.imageUrl = imageUrl;
   }
 }
-
 class ProductList {
   products = [
     new ProductItem(
@@ -52,28 +51,35 @@ class ProductList {
 
   cartValue(item) {
     this.total += item;
-    const cart = new Cart();
-    cart.render(this.total);
+    App.render();
   }
 }
 class Cart {
-  render(total) {
-    const app = document.getElementById('app');
-    const cart = document.createElement('div');
-    cart.className = 'cart';
-    cart.innerHTML = `
-    <h2>Total: \$${total}</h2>
+  app = document.getElementById('app');
+  cart = document.createElement('div');
+  render(sum) {
+    this.cart.className = 'cart';
+    this.cart.innerHTML = `
+    <h2>Total: \$${sum}</h2>
     <button>Order Now!</button>
     `;
 
-    app.appendChild(cart);
-    console.log(total);
+    this.app.insertAdjacentElement('beforebegin', this.cart);
   }
+
+  sumValue() {}
 }
 class App {
   static init() {
-    const list = new ProductList();
-    list.render();
+    this.list = new ProductList();
+    this.list.render();
+    this.cart = new Cart();
+  }
+
+  static render() {
+    const sum = this.list.total;
+    this.cart.render(sum);
+    console.log(sum);
   }
 }
 
