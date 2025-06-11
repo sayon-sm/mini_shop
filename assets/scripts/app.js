@@ -23,6 +23,8 @@ class ProductList {
     ),
   ];
 
+  total = 0;
+
   render() {
     const app = document.getElementById('app');
     const products = document.createElement('ul');
@@ -32,33 +34,47 @@ class ProductList {
       productItem.className = 'product-item';
       productItem.innerHTML = `
       <div class="product-image">
-        <img src="${product.imageUrl}" alt="${product.name}">
+      <img src="${product.imageUrl}" alt="${product.name}">
       </div>
       <div class="product-item__content">
-        <h2>${product.name}</h2>
-        <p>${product.description}</p>
-        <span>$${product.price}</span>
+      <h2>${product.name}</h2>
+      <h3>$${product.price}</h3>
+      <p>${product.description}</p>
+      <button>Add to Cart</button>
       </div>
       `;
       products.appendChild(productItem);
+      const buy = productItem.querySelector('button');
+      buy.addEventListener('click', this.cartValue.bind(this, product.price));
     });
     app.appendChild(products);
   }
-}
 
+  cartValue(item) {
+    this.total += item;
+    const cart = new Cart();
+    cart.render(this.total);
+  }
+}
 class Cart {
-  render() {
+  render(total) {
     const app = document.getElementById('app');
     const cart = document.createElement('div');
     cart.className = 'cart';
     cart.innerHTML = `
-      <h2>Total: \$${1}</h2>
-      <button>Order Now!</button>
+    <h2>Total: \$${total}</h2>
+    <button>Order Now!</button>
     `;
 
     app.appendChild(cart);
+    console.log(total);
+  }
+}
+class App {
+  static init() {
+    const list = new ProductList();
+    list.render();
   }
 }
 
-new Cart().render();
-new ProductList().render();
+App.init();
