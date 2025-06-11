@@ -46,4 +46,19 @@ class ProductList {
   }
 }
 
+class Cart {
+  render() {
+    const app = document.getElementById('app');
+    const cart = document.createElement('div');
+    cart.className = 'cart';
+    cart.innerHTML = `
+      <h2>Total: \$${1}</h2>
+      <button>Order Now!</button>
+    `;
+
+    app.appendChild(cart);
+  }
+}
+
+new Cart().render();
 new ProductList().render();
