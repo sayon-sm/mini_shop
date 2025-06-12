@@ -55,6 +55,7 @@ class ProductList {
     this.cart.push(item);
     this.total += item.price;
     App.render();
+    alert(`adding ${item.name} to cart`);
   }
 }
 class Cart {
