@@ -24,6 +24,8 @@ class ProductList {
 
   total = 0;
 
+  cart = [];
+
   render() {
     const app = document.getElementById('app');
     const products = document.createElement('ul');
@@ -44,13 +46,14 @@ class ProductList {
       `;
       products.appendChild(productItem);
       const buy = productItem.querySelector('button');
-      buy.addEventListener('click', this.cartValue.bind(this, product.price));
+      buy.addEventListener('click', this.cartValue.bind(this, product));
     });
     app.appendChild(products);
   }
 
   cartValue(item) {
-    this.total += item;
+    this.cart.push(item);
+    this.total += item.price;
     App.render();
   }
 }
@@ -65,9 +68,13 @@ class Cart {
     `;
 
     this.app.insertAdjacentElement('beforebegin', this.cart);
+    this.order = this.cart.querySelector('button');
+    this.order.addEventListener('click', this.ordering);
   }
 
-  sumValue() {}
+  ordering() {
+    App.order();
+  }
 }
 class App {
   static init() {
@@ -79,7 +86,11 @@ class App {
   static render() {
     const sum = this.list.total;
     this.cart.render(sum);
-    console.log(sum);
+  }
+
+  static order() {
+    alert('ORDERING ITEMS !');
+    console.log(this.list.cart);
   }
 }
 
