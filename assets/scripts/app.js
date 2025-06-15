@@ -82,6 +82,7 @@ class App {
     this.list = new ProductList();
     this.list.render();
     this.cart = new Cart();
+    this.cart.render(0);
   }
 
   static render() {
