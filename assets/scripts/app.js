@@ -1,3 +1,4 @@
+'use strict';
 class ProductItem {
   constructor(name, price, description, imageUrl) {
     this.name = name;
