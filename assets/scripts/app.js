@@ -92,8 +92,12 @@ class App {
   }
 
   static order() {
-    alert('ORDERING ITEMS !');
-    console.log(this.list.cart);
+    if (this.list.cart.length === 0) {
+      alert('NOTHING TO ORDER');
+    } else {
+      alert('ORDERING ITEMS !');
+      console.log(this.list.cart);
+    }
   }
 }
 
